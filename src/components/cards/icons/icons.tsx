@@ -29,8 +29,14 @@ const WeatherIcons: any = {
   '11n': storm,
 };
 
-export { humidity, pressure, sun, wind };
+export const weatherInfo = [
+  { name: 'sunrise', icon: sun, value: 'a' },
 
-//   co
+  { name: 'wind', icon: wind, value: 'b' },
+  ,
+  { name: 'humidity', icon: humidity, value: 'c' },
+  ,
+  { name: 'pressure', icon: pressure, value: 'd' },
+];
 
 export default WeatherIcons;
