@@ -1,11 +1,20 @@
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
 import { Button, TextField } from '@mui/material';
 
-const CityCard = ({ city, handleCityInputChange, setState, setCity }) => {
+import API_KEY from '../../../secrets';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import axios from 'axios';
+import { setWeather } from '../../features/weatherSlice';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+
+const CityCard = () => {
+  const [city, setCity] = useState('');
+  const [error, setError] = useState('');
+  const dispatch = useDispatch();
   const date = new Date();
   const seconds = date.getSeconds().toString().padStart(2, '0');
   const minutes = date.getMinutes().toString().padStart(2, '0');
@@ -14,6 +23,23 @@ const CityCard = ({ city, handleCityInputChange, setState, setCity }) => {
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
   const year = date.getFullYear().toString();
   const formattedDate = `${hours}:${minutes}:${seconds} ${day}/${month}/${year}`;
+
+  const fetchWeather = () => {
+    const fetchData = async () => {
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`;
+
+      await axios
+        .get(url)
+        .then((res) => {
+          dispatch(setWeather(res.data));
+        })
+        .catch((err) => {
+          setError(err.message);
+        });
+    };
+
+    fetchData();
+  };
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -37,17 +63,18 @@ const CityCard = ({ city, handleCityInputChange, setState, setCity }) => {
       </CardContent>
       <CardContent className='city__input__container'>
         <TextField
-          className='city__input'
+          className={`city__input `}
           label='city'
           value={city}
-          onChange={(e) => handleCityInputChange(e.target.value)}
+          onChange={(e) => setCity(e.target.value)}
           variant='outlined'
+          error={!!error}
         />
         <Button
           className='button'
           variant='contained'
           onClick={() => {
-            setState(city ? true : false);
+            fetchWeather();
           }}
         >
           Search
