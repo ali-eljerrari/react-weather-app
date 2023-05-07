@@ -6,11 +6,16 @@ import WeatherCard from './WeatherCard';
 import './App.scss';
 
 const WeatherApp = () => {
-  const [city, setCity] = useState('driouch');
+  const [city, setCity] = useState('');
   const [data, setData] = useState({});
+  const [state, setState] = useState(false);
+
+  const handleCityInputChange = (city: string) => {
+    setCity(city);
+  };
 
   useEffect(() => {
-    const fetchdata = async () => {
+    const fetchData = async () => {
       const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`;
 
       await axios
@@ -18,18 +23,22 @@ const WeatherApp = () => {
         .then((res) => setData(res.data))
         .catch((err) => console.log(err));
     };
-    fetchdata();
-  }, [city]);
+
+    if (city && state) {
+      fetchData();
+    }
+  }, [city, state]);
 
   return (
     <div className='App'>
-      {!city && (
+      {!state ? (
         <CityCard
           city={city}
-          setCity={setCity}
+          handleCityInputChange={handleCityInputChange}
+          setState={setState}
         />
-      )}
-      {Object.keys(data).length && <WeatherCard data={data} />}
+      ) : null}
+      {Object.keys(data).length ? <WeatherCard data={data} /> : null}
     </div>
   );
 };
