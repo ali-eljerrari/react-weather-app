@@ -16,8 +16,10 @@ import perfectDay from './icons/perfect-day.svg';
 import rain from './icons/rain.svg';
 import rainNight from './icons/rain-night.svg';
 import storm from './icons/storm.svg';
+import { IconButton } from '@mui/material';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 
-const WeatherCard = ({ data }) => {
+const WeatherCard = ({ data, setCity, setState }) => {
   const date = data?.sys?.sunrise;
 
   function formatDate(timestamp: number) {
@@ -52,6 +54,19 @@ const WeatherCard = ({ data }) => {
       <CardHeader
         title='React Weather App'
         subheader={data?.name + ', ' + data?.sys?.country}
+        action={
+          <IconButton
+            aria-label='settings'
+            color='error'
+            size='large'
+            onClick={() => {
+              setState(false);
+              setCity('');
+            }}
+          >
+            <ArrowCircleLeftIcon fontSize='large' />
+          </IconButton>
+        }
       />
       <CardMedia
         component='img'

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import API_KEY from '../secrets';
-import CityCard from './CityCard';
-import WeatherCard from './WeatherCard';
+import CityCard from './components/cards/CityCard';
+import WeatherCard from './components/cards/WeatherCard';
 import './App.scss';
 
 const WeatherApp = () => {
@@ -20,12 +20,16 @@ const WeatherApp = () => {
 
       await axios
         .get(url)
-        .then((res) => setData(res.data))
-        .catch((err) => console.log(err));
+        .then((res) => {
+          setData(res.data);
+          // setState(true);
+        })
+        .catch((err) => setState(false));
     };
 
     if (city && state) {
       fetchData();
+      console.log(city, state);
     }
   }, [city, state]);
 
@@ -36,9 +40,16 @@ const WeatherApp = () => {
           city={city}
           handleCityInputChange={handleCityInputChange}
           setState={setState}
+          setCity={setCity}
         />
       ) : null}
-      {Object.keys(data).length ? <WeatherCard data={data} /> : null}
+      {Object.keys(data).length && state ? (
+        <WeatherCard
+          data={data}
+          setCity={setCity}
+          setState={setState}
+        />
+      ) : null}
     </div>
   );
 };

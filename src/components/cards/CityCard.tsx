@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Button, TextField } from '@mui/material';
 
-const CityCard = ({ city, handleCityInputChange, setState }) => {
+const CityCard = ({ city, handleCityInputChange, setState, setCity }) => {
   const date = new Date();
   const seconds = date.getSeconds().toString().padStart(2, '0');
   const minutes = date.getMinutes().toString().padStart(2, '0');
@@ -46,7 +46,9 @@ const CityCard = ({ city, handleCityInputChange, setState }) => {
         <Button
           className='button'
           variant='contained'
-          onClick={() => setState(true)}
+          onClick={() => {
+            setState(city ? true : false);
+          }}
         >
           Search
         </Button>
