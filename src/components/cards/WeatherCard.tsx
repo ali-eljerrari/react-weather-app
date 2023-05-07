@@ -1,23 +1,18 @@
+import WeatherIcons, { humidity, pressure, sun, wind } from './icons/icons';
+import { removeWeather, selectWeather } from '../../features/weatherSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
+import { IconButton } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import cloudy from './icons/cloudy-night.svg';
-import sun from './icons/sunny.svg';
-import humidity from './icons/humidity.svg';
-import wind from './icons/wind.svg';
-import pressure from './icons/pressure.svg';
-import sunny from './icons/sunny.svg';
-import night from './icons/night.svg';
-import day from './icons/day.svg';
-import cloudyNight from './icons/cloudy-night.svg';
-import perfectDay from './icons/perfect-day.svg';
-import rain from './icons/rain.svg';
-import rainNight from './icons/rain-night.svg';
-import storm from './icons/storm.svg';
 
-const WeatherCard = ({ data }) => {
+const WeatherCard = () => {
+  const dispatch = useDispatch();
+  const data = useSelector(selectWeather);
   const date = data?.sys?.sunrise;
 
   function formatDate(timestamp: number) {
@@ -30,28 +25,25 @@ const WeatherCard = ({ data }) => {
 
   const formattedDate = formatDate(date);
 
-  const WeatherIcons = {
-    '01d': sunny,
-    '01n': night,
-    '02d': day,
-    '02n': cloudyNight,
-    '03d': cloudy,
-    '03n': cloudy,
-    '04d': perfectDay,
-    '04n': cloudyNight,
-    '09d': rain,
-    '09n': rainNight,
-    '10d': rain,
-    '10n': rainNight,
-    '11d': storm,
-    '11n': storm,
-  };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         title='React Weather App'
         subheader={data?.name + ', ' + data?.sys?.country}
+        action={
+          <IconButton
+            aria-label='settings'
+            color='error'
+            size='large'
+            onClick={() => {
+              dispatch(removeWeather());
+            }}
+          >
+            <ArrowCircleLeftIcon fontSize='large' />
+          </IconButton>
+        }
       />
       <CardMedia
         component='img'
