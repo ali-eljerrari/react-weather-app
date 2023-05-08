@@ -66,7 +66,10 @@ const CityCard = () => {
           className={`city__input `}
           label='city'
           value={city}
-          onChange={(e) => setCity(e.target.value)}
+          onChange={(e) => {
+            setCity(e.target.value),
+              localStorage.setItem('city', e.target.value);
+          }}
           variant='outlined'
           error={!!error}
         />

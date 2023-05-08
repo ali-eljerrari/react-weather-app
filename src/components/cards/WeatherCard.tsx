@@ -1,18 +1,15 @@
 import WeatherIcons, { weatherInfo } from './icons/icons';
-import { removeWeather, selectWeather } from '../../features/weatherSlice';
-import { useDispatch, useSelector } from 'react-redux';
 
-import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
-import { IconButton } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import WeatherCardInfo from './WeatherCardInfo';
+import { selectWeather } from '../../features/weatherSlice';
+import { useSelector } from 'react-redux';
 
 const WeatherCard = () => {
-  const dispatch = useDispatch();
   const data = useSelector(selectWeather);
 
   const info = {
@@ -27,18 +24,6 @@ const WeatherCard = () => {
       <CardHeader
         title='React Weather App'
         subheader={data?.name + ', ' + data?.sys?.country}
-        action={
-          <IconButton
-            aria-label='settings'
-            color='error'
-            size='large'
-            onClick={() => {
-              dispatch(removeWeather());
-            }}
-          >
-            <ArrowCircleLeftIcon fontSize='large' />
-          </IconButton>
-        }
       />
       <CardMedia
         component='img'
