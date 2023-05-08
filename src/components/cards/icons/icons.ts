@@ -1,16 +1,12 @@
 import cloudy from './cloudy-night.svg';
 import cloudyNight from './cloudy-night.svg';
 import day from './day.svg';
-import humidity from './humidity.svg';
 import night from './night.svg';
 import perfectDay from './perfect-day.svg';
-import pressure from './pressure.svg';
 import rain from './rain.svg';
 import rainNight from './rain-night.svg';
 import storm from './storm.svg';
-import sun from './sunny.svg';
 import sunny from './sunny.svg';
-import wind from './wind.svg';
 
 const WeatherIcons: any = {
   '01d': sunny,
@@ -30,13 +26,22 @@ const WeatherIcons: any = {
 };
 
 export const weatherInfo = [
-  { name: 'sunrise', icon: sun, value: 'a' },
+  {
+    name: 'sunrise',
+    icon: `https://img.icons8.com/bubbles/50/null/sunrise.png`,
+  },
 
-  { name: 'wind', icon: wind, value: 'b' },
+  { name: 'wind', icon: `https://img.icons8.com/ios/50/null/wind--v1.png` },
   ,
-  { name: 'humidity', icon: humidity, value: 'c' },
+  {
+    name: 'humidity',
+    icon: `https://img.icons8.com/color-glass/48/null/humidity.png`,
+  },
   ,
-  { name: 'pressure', icon: pressure, value: 'd' },
+  {
+    name: 'pressure',
+    icon: `https://img.icons8.com/color-glass/48/null/pressure.png`,
+  },
 ];
 
 export default WeatherIcons;

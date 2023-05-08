@@ -50,7 +50,7 @@ const CityCard = () => {
       <CardMedia
         component='img'
         height='194'
-        image='https://images.unsplash.com/photo-1517685352821-92cf88aee5a5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80'
+        image='https://images.unsplash.com/photo-1609130059772-3f0a7de9d08c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1544&q=80'
         alt='Paella dish'
       />
       <CardContent>
