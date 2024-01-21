@@ -19,7 +19,6 @@ export const weatherSlice = createSlice({
 
 export const { setWeather, removeWeather } = weatherSlice.actions;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const selectWeather = (state: any) => state.weather.weather;
 
 export default weatherSlice.reducer;

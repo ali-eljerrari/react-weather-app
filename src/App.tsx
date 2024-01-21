@@ -1,27 +1,18 @@
-import './App.scss';
-
-import CityCard from './components/cards/CityCard';
-import WeatherCard from './components/cards/WeatherCard';
-import { selectWeather } from './features/weatherSlice';
-import useFetchWeather from './customHooks/useFetchWeather';
-import { useSelector } from 'react-redux';
+import "./App.css";
+import CityCard from "./components/cards/CityCard";
+import WeatherCard from "./components/cards/WeatherCard";
+import useWeatherStore from "./store/store";
 
 const WeatherApp = () => {
-  const data = useSelector(selectWeather);
-  useFetchWeather();
+  const { weather } = useWeatherStore();
 
   return (
-    <div className='App'>
-      {Object.keys(data).length ? (
-        <>
-          <CityCard />
-          <WeatherCard />
-        </>
-      ) : (
-        <>
-          <CityCard />
-        </>
-      )}
+    <div className="flex flex-col w-screen h-screen overflow-hidden pt-10  bg-gradient-to-r from-sky-400 to-blue-500">
+      <>
+        <div style={{ padding: "0 0.5rem" }} className="flex justify-center">
+          {!weather ? <CityCard /> : <WeatherCard />}
+        </div>
+      </>
     </div>
   );
 };

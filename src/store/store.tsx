@@ -1,8 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit';
-import weatherReducer from '../features/weatherSlice';
+import { create } from "zustand";
 
-export const store = configureStore({
-  reducer: {
-    weather: weatherReducer,
-  },
-});
+const useWeatherStore = create((set) => ({
+  weather: null,
+  setWeather: (weather) => set({ weather }),
+}));
+
+export default useWeatherStore;
