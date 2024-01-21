@@ -1,8 +1,8 @@
 import { CardMedia, Typography } from "@mui/material";
 interface WeatherCardInfoProps {
-  data: {
-    icon: string; // Assuming icon is a string, adjust the type accordingly
+  data?: {
     name: string;
+    icon: string; // Assuming icon is a string, adjust the type accordingly
   };
   value: {
     sunrise?: number; // Assuming sunrise is a number, adjust the type accordingly
@@ -29,19 +29,19 @@ const WeatherCardInfo: React.FC<WeatherCardInfoProps> = ({ data, value }) => {
     <div className="flex flex-col items-center justify-center mx-4">
       <CardMedia
         component="img"
-        image={data.icon}
+        image={data?.icon}
         alt="Paella dish"
         style={{ width: "50px", maxWidth: "100px" }}
       />
       <div className="flex flex-col items-center justify-center ">
         <Typography variant="body1" color="text.secondary">
-          {data.name === "sunrise" && formattedDate}
-          {data.name === "wind" && value.wind}
-          {data.name === "pressure" && value.pressure}
-          {data.name === "humidity" && value.humidity}
+          {data?.name === "sunrise" && formattedDate}
+          {data?.name === "wind" && value.wind}
+          {data?.name === "pressure" && value.pressure}
+          {data?.name === "humidity" && value.humidity}
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          {data.name}
+          {data?.name}
         </Typography>
       </div>
     </div>
