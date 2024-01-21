@@ -8,7 +8,9 @@ import Typography from "@mui/material/Typography";
 import useWeatherStore from "../../store/store";
 import WeatherCardInfo from "./WeatherCardInfo";
 
-const WeatherCard = () => {
+interface WeatherCardProps {}
+
+const WeatherCard: React.FC<WeatherCardProps> = () => {
   const { weather } = useWeatherStore();
 
   const info = {

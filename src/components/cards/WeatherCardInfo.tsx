@@ -1,7 +1,19 @@
 import { CardMedia, Typography } from "@mui/material";
+interface WeatherCardInfoProps {
+  data: {
+    icon: string; // Assuming icon is a string, adjust the type accordingly
+    name: string;
+  };
+  value: {
+    sunrise?: number; // Assuming sunrise is a number, adjust the type accordingly
+    wind?: number; // Assuming wind is a number, adjust the type accordingly
+    pressure?: number; // Assuming pressure is a number, adjust the type accordingly
+    humidity?: number; // Assuming humidity is a number, adjust the type accordingly
+  };
+}
 
-const WeatherCardInfo = ({ data, value }) => {
-  const date = value?.sunrise;
+const WeatherCardInfo: React.FC<WeatherCardInfoProps> = ({ data, value }) => {
+  const date: any = value?.sunrise;
 
   const formatDate = (timestamp: number) => {
     const date = new Date(timestamp * 1000);
