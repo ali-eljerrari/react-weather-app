@@ -6,12 +6,11 @@ import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
-import API_KEY from "../../../secrets";
 import { useState } from "react";
 import useWeatherStore from "../../store/store";
 
 const CityCard = () => {
-  const [city, setCity] = useState("nador");
+  const [city, setCity] = useState("");
   const date = new Date();
   const seconds = date.getSeconds().toString().padStart(2, "0");
   const minutes = date.getMinutes().toString().padStart(2, "0");
@@ -26,7 +25,9 @@ const CityCard = () => {
   const fetchWeather = () => {
     const fetchData = async () => {
       if (!city) return;
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`;
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${
+        import.meta.env.VITE_API_KEY
+      }`;
 
       try {
         const response = await axios.get(url);
