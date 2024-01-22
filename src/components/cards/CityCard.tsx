@@ -67,7 +67,11 @@ const CityCard = () => {
         <Typography variant="body1">Find weather of your city</Typography>
       </CardContent>
       <CardContent className="flex flex-col w-full">
-        {error ? <Alert severity="error">{error}</Alert> : null}
+        {error ? (
+          <Alert severity="error" className="mb-2">
+            {error}
+          </Alert>
+        ) : null}
         <div className="flex w-full">
           <TextField
             label="city"
