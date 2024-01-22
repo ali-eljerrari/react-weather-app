@@ -7,11 +7,12 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import useWeatherStore from "../../store/store";
 import WeatherCardInfo from "./WeatherCardInfo";
+import { Button } from "@mui/material";
 
 interface WeatherCardProps {}
 
 const WeatherCard: React.FC<WeatherCardProps> = () => {
-  const { weather } = useWeatherStore();
+  const { weather, setWeather } = useWeatherStore();
 
   const info = {
     sunrise: weather?.sys?.sunrise,
@@ -33,7 +34,9 @@ const WeatherCard: React.FC<WeatherCardProps> = () => {
       />
       <CardMedia
         component="img"
-        image={WeatherIcons[weather?.weather[0]?.icon]}
+        image={
+          Object.keys(weather).length && WeatherIcons[weather?.weather[0]?.icon]
+        }
         alt="Paella dish"
         style={{ maxWidth: "200px" }}
       />
@@ -44,7 +47,7 @@ const WeatherCard: React.FC<WeatherCardProps> = () => {
           className="text-center"
         >
           {Math.round(weather?.main?.temp - 273.15)}&deg;C |{" "}
-          {weather?.weather[0]?.description}
+          {Object.keys(weather).length && weather?.weather[0]?.description}
         </Typography>
       </CardContent>
       <CardContent className="flex flex-col">
@@ -60,6 +63,17 @@ const WeatherCard: React.FC<WeatherCardProps> = () => {
             return <WeatherCardInfo key={index} data={item} value={info} />;
           })}
         </div>
+      </CardContent>
+      <CardContent>
+        <Button
+          variant="outlined"
+          color="error"
+          onClick={() => {
+            setWeather(null);
+          }}
+        >
+          Reset
+        </Button>
       </CardContent>
     </Card>
   );

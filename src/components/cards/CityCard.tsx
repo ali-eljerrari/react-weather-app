@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Alert, Button, TextField } from "@mui/material";
 
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -10,7 +10,8 @@ import { useState } from "react";
 import useWeatherStore from "../../store/store";
 
 const CityCard = () => {
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
   const date = new Date();
   const seconds = date.getSeconds().toString().padStart(2, "0");
   const minutes = date.getMinutes().toString().padStart(2, "0");
@@ -24,7 +25,10 @@ const CityCard = () => {
 
   const fetchWeather = () => {
     const fetchData = async () => {
-      if (!city) return;
+      if (!city) {
+        setError("Kindly provide the name of a city!");
+        return;
+      }
       const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${
         import.meta.env.VITE_API_KEY
       }`;
@@ -34,9 +38,12 @@ const CityCard = () => {
 
         if (response.data) {
           setWeather(response.data);
+          setError(null);
         }
-      } catch (error) {
-        console.error(error);
+      } catch (error: any) {
+        const errorMessage =
+          error.response?.data.message || "An error occurred";
+        setError(errorMessage);
       }
     };
 
@@ -59,25 +66,28 @@ const CityCard = () => {
       <CardContent>
         <Typography variant="body1">Find weather of your city</Typography>
       </CardContent>
-      <CardContent className="flex w-full">
-        <TextField
-          label="city"
-          className="flex-1"
-          sx={{ marginRight: "5px" }}
-          value={city}
-          onChange={(e) => {
-            setCity(e.target.value);
-          }}
-          variant="outlined"
-        />
-        <Button
-          variant="contained"
-          onClick={() => {
-            fetchWeather();
-          }}
-        >
-          Search
-        </Button>
+      <CardContent className="flex flex-col w-full">
+        {error ? <Alert severity="error">{error}</Alert> : null}
+        <div className="flex w-full">
+          <TextField
+            label="city"
+            className="flex-1"
+            sx={{ marginRight: "5px" }}
+            value={city}
+            onChange={(e) => {
+              setCity(e.target.value);
+            }}
+            variant="outlined"
+          />
+          <Button
+            variant="contained"
+            onClick={() => {
+              fetchWeather();
+            }}
+          >
+            Search
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );
